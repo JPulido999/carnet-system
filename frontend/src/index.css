@@ -1,0 +1,11 @@
+/* src/index.css */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background-color: #e4e2e2;
+  color: #fff;
+}
+
+button {
+  cursor: pointer;
+}

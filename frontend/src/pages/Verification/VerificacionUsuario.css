@@ -1,0 +1,113 @@
+.verificacion-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0c2c4a, #5c0000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* CARD PRINCIPAL */
+.verificacion-card {
+    background: #ffffff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 420px;
+    padding: 26px 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* TITULO */
+.verificacion-card h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #0c2c4a;
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+}
+
+/* FOTO */
+.foto-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.foto-container img {
+    width: 130px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 3px solid #0c2c4a;
+}
+
+/* DATOS */
+.datos-verificacion {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.datos-verificacion p {
+    margin: 6px 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.datos-verificacion strong {
+    color: #0c2c4a;
+}
+
+/* ESTADO OK */
+.estado-verificado {
+    margin-top: 14px;
+    padding: 10px;
+    background: #e6f7ec;
+    color: #1e7e34;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* ERROR */
+.error-text {
+    margin-top: 14px;
+    padding: 10px;
+    background: #fdecea;
+    color: #b00020;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* BOTON IR A MANUAL */
+.btn-manual {
+    margin-top: 14px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    background: #0c2c4a;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-manual:hover {
+    background: #093054;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

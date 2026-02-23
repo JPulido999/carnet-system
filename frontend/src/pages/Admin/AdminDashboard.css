@@ -1,0 +1,210 @@
+/* ============================= */
+/* DASHBOARD ADMIN – ZKTECO */
+/* ============================= */
+
+/* Evitar selección de texto */
+* {
+    user-select: none;
+}
+
+/* Evitar arrastre de imágenes */
+img {
+    pointer-events: none;
+}
+
+/* --- CONTENEDOR GENERAL --- */
+.admin-dashboard-container {
+    font-family: "Inter", sans-serif;
+    padding: 2rem;
+    background: #f4f6f8;
+    min-height: 100vh;
+}
+
+/* --- TÍTULO --- */
+.admin-title{
+    font-size: 1.6rem;
+    text-align: center;
+    font-weight: 700;
+    color: #5c0000;
+    margin-bottom: 20px;
+}
+
+/* --- SECCIÓN FILTROS --- */
+.admin-filtros {
+    background: white;
+    padding: 16px 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.admin-filtros label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.admin-filtros input {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.85rem;
+}
+
+.admin-filtros button {
+    background: #5c0000;
+    color: white;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.admin-filtros button:hover {
+    background: #222;
+}
+
+/* --- GRID DE ESTADÍSTICAS --- */
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* --- TARJETA ESTADÍSTICA --- */
+.stat-card {
+    width: 200px;
+    background: white;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.stat-card span {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 600;
+}
+
+.stat-card strong {
+    font-size: 1.6rem;
+    color: #004b85;
+}
+
+/* --- TARJETA EXPORTACIÓN --- */
+.export-card {
+    width: 100px;
+    background: white;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.export-card span {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 600;
+}
+
+.export-card button {
+    background: #5c0000;
+    color: white;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.export-card button:hover {
+    background: #222;
+}
+
+/* --- SECCIÓN TABLA --- */
+.admin-table-container {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    overflow-x: auto;
+}
+
+/* --- TABLA --- */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    background: white;
+}
+
+/* --- CABECERA --- */
+.admin-table thead {
+    background: #5c0000;
+}
+
+.admin-table th {
+    color: #ffffff;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #400000;
+}
+
+/* --- CUERPO --- */
+.admin-table td {
+    padding: 12px;
+    color: #222222;        /* 🔑 CLAVE: texto visible */
+    border-bottom: 1px solid #e2e2e2;
+}
+
+/* Filas alternadas */
+.admin-table tbody tr:nth-child(even) {
+    background: #e2e2e2;
+}
+
+/* Hover elegante */
+.admin-table tbody tr:hover {
+    background: #f1f1f1;
+}
+
+/* Hover texto */
+.admin-table tbody tr:hover td {
+    color: #5c0000;
+    font-weight: 500;
+}
+
+/* --- PAGINACIÓN --- */
+.admin-pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 18px;
+}
+
+.admin-pagination button {
+    background: #004b85;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-pagination button:hover:not(:disabled) {
+    background: #5c0000;
+}
+
+.admin-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

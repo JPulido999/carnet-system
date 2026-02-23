@@ -1,0 +1,123 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 20px;
+
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.55),
+        rgba(0, 0, 0, 0.55)
+    ),
+    url("/ingresounsch.jpeg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: #fff;
+    text-align: center;
+}
+
+
+.home-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    background-color: #5c0000;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.home-container button:hover {
+    background-color: #3f3f3f;
+}
+
+.logo-unsch-principal {
+    padding: 10px;
+    width: 300px;
+}
+
+p{
+    font-style: italic;
+    font-size: 12px;
+}
+
+/*para menu vigilante*/
+.icono-vigilante {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    font-size: 22px;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: opacity 0.3s;
+}
+
+.icono-vigilante:hover {
+    opacity: 1;
+}
+
+.login-vigilante {
+    margin-top: 20px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+
+    padding: 20px;
+    border-radius: 12px;
+    width: 260px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.login-vigilante input {
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+}
+
+.login-vigilante button {
+    background-color: #004b85;
+}
+
+.error-text {
+    color: #ffb3b3;
+    font-size: 12px;
+}
+
+
+.btn-google {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background-color: #ffffff;
+    color: #333;
+
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-google img {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-google:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+}

@@ -1,0 +1,114 @@
+label{
+    color: black;
+}
+
+span{
+    color: black;
+}
+
+.mis-accesos-container {
+  margin-top: 110px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mis-accesos-container h3 {
+  text-align: center;
+  
+  padding: 15px ;
+  color: #5c0000;
+  margin-bottom: 15px;
+}
+
+.mis-accesos-filtros {
+  display: flex;
+  gap: 15px;
+  justify-content: left;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.mis-accesos-filtros input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.mis-accesos-filtros button {
+  background: #5c0000;
+  height: 40px;
+  margin-top: 15px;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mis-accesos-filtros button:hover {
+  background: #222;
+}
+
+.mis-accesos-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mis-accesos-tabla th {
+  background: #5c0000;
+  color: white;
+  padding: 12px;
+}
+
+.mis-accesos-tabla td {
+  color: black;
+  font-size: 11pt;
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.mis-accesos-tabla tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.mis-accesos-tabla tr:hover {
+  background: #f0f0f0;
+}
+
+.mis-accesos-paginacion {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.mis-accesos-paginacion button {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #5c0000;
+  color: white;
+  cursor: pointer;
+}
+
+.mis-accesos-paginacion button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tipo-ingreso {
+  color: green;
+  font-weight: 700;
+}
+
+.tipo-salida {
+  color: #b00000;
+  font-weight: 700;
+}
+
