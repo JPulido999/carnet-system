@@ -10,7 +10,7 @@ import java.util.Base64;
 @Service
 public class FotoService {
 
-    private final String RUTA_FOTOS = "D:/JUNIOR/control_ph/";
+    private final String RUTA_FOTOS = "/app/uploads/";
 
     public String cargarFotoBase64(String nombreArchivo) {
 

@@ -6,7 +6,7 @@ export default function CarnetEstudiante({ datos }) {
 
             <div className="barra-superior estudiante-color">
                 <img
-                    src="http://localhost:9000/control_ph/logounsch1.png"
+                    src="http://localhost:9000/uploads/logounsch1.png"
                     className="logo-unsch"
                 />
 
@@ -18,7 +18,7 @@ export default function CarnetEstudiante({ datos }) {
 
             <div className="marco-foto">
                 <img
-                    src={`http://localhost:9000/control_ph/${datos.fotoCarnetUrl}`}
+                    src={`http://localhost:9000/uploads/${datos.fotoCarnetUrl}`}
                     className="foto-usuario"
                 />
             </div>

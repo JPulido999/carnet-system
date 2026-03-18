@@ -25,6 +25,11 @@ public class AuthController {
     public void loginSuccess(@AuthenticationPrincipal OAuth2User user,
                              HttpServletResponse response) throws IOException {
 
+        if (user == null) {
+        response.sendRedirect("http://localhost:5173/login?error=OAUTH_ERROR");
+        return;
+        }       
+        
         String correo = null;
 
         if (user != null && user.getAttributes() != null) {

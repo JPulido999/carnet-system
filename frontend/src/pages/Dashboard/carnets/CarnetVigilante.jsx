@@ -5,13 +5,13 @@ export default function CarnetVigilante({ datos }) {
         <div id="carnet" className="carnet carnet-vigilante">
 
             <div className="barra-superior vigilante-color">
-                <img src="http://localhost:9000/control_ph/logounsch1.png" className="logo-unsch" />
+                <img src="http://localhost:9000/uploads/logounsch1.png" className="logo-unsch" />
                 <img src={`data:image/png;base64,${datos.qrBase64}`} className="qr-img" />
             </div>
 
             <div className="marco-foto">
                 <img
-                    src={`http://localhost:9000/control_ph/${datos.fotoCarnetUrl}`}
+                    src={`http://localhost:9000/uploads/${datos.fotoCarnetUrl}`}
                     className="foto-usuario"
                 />
             </div>

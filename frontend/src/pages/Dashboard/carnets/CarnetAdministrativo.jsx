@@ -5,14 +5,14 @@ export default function CarnetAdministrativo({ datos }) {
         <div id="carnet" className="carnet carnet-admin">
 
             <div className="barra-superior admin-color">
-                <img src="http://localhost:9000/control_ph/logounsch1.png" className="logo-unsch" />
+                <img src="http://localhost:9000/uploads/logounsch1.png" className="logo-unsch" />
                 <img src={`data:image/png;base64,${datos.qrBase64}`} className="qr-img" />
             </div>
 
             <div className="marco-foto">
                 <img
-                    src={`http://localhost:9000/control_ph/${datos.fotoCarnetUrl}`}
-                    className="foto-usuario"
+                src={`http://localhost:9000/uploads/${datos.fotoCarnetUrl}`}
+                className="foto-usuario"
                 />
             </div>
 

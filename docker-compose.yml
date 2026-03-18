@@ -1,0 +1,95 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - red-interna
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  backend:
+    build: ./backend
+    container_name: backend_app
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      TZ: America/Lima
+      SPRING_DATASOURCE_URL: ${DB_P_URL}
+      SPRING_DATASOURCE_USERNAME: ${DB_P_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_P_PASSWORD}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - red-interna
+
+  backend-zkteco:
+    build: ./backend-zkteco
+    container_name: backend_zkteco
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: ${DB_S_URL}
+      SPRING_DATASOURCE_USERNAME: ${DB_S_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_S_PASSWORD}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - red-interna
+
+  frontend:
+    build: ./frontend
+    container_name: frontend_app
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - red-interna
+
+volumes:
+  postgres_data:
+
+networks:
+  red-interna:
+    driver: bridge
