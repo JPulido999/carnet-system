@@ -25,7 +25,7 @@ public class TransactionProxyController {
     ) {
 
         UriComponentsBuilder builder = UriComponentsBuilder
-                .fromHttpUrl("http://localhost:8091/api/transactions")
+                .fromHttpUrl("http://backend-zkteco:8080/api/transactions")
                 .queryParam("startDate", startDate)
                 .queryParam("endDate", endDate)
                 .queryParam("page", page)
@@ -56,7 +56,7 @@ public class TransactionProxyController {
     ) {
 
         UriComponentsBuilder builder = UriComponentsBuilder
-                .fromHttpUrl("http://localhost:8091/api/transactions/mis-accesos")
+                .fromHttpUrl("http://backend-zkteco:8080/api/transactions/mis-accesos")
                 .queryParam("startDate", startDate)
                 .queryParam("endDate", endDate)
                 .queryParam("dni", dni)

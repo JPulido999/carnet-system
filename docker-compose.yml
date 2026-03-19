@@ -55,7 +55,7 @@ services:
 
   backend-zkteco:
     build: ./backend-zkteco
-    container_name: backend_zkteco
+    container_name: backend-zkteco
     restart: unless-stopped
     ports:
       - "8081:8080"
