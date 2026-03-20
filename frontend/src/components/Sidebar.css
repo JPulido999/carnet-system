@@ -1,0 +1,123 @@
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: linear-gradient(180deg, #0f172a, #020617);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 20px 10px;
+    position: fixed;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+/* COLLAPSED */
+.sidebar.collapsed {
+    width: 75px;
+}
+
+/* HEADER */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
+.sidebar-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ITEMS */
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin: 5px 0;
+    border-radius: 12px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.sidebar-item {
+    color: white;
+}
+
+.sidebar-item span {
+    color: inherit;
+}
+
+.sidebar-item .icon {
+    color: #94a3b8; /* 🔥 ICONOS UN SOLO COLOR */
+}
+
+/* HOVER */
+.sidebar-item:hover {
+    background: rgba(37, 99, 235, 0.15);
+    color: white;
+    transform: translateX(4px);
+}
+
+/* ACTIVE */
+.sidebar-item.active {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+}
+
+.sidebar-item.active .icon {
+    color: white;
+}
+
+/* COLLAPSED CENTER ICON */
+.sidebar.collapsed .sidebar-item {
+    justify-content: center;
+}
+
+/* BOTÓN COLAPSAR */
+.collapse-btn {
+    background: rgba(255,255,255,0.05);
+    border: none;
+    color: white;
+    padding: 6px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.collapse-btn:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* MOBILE BUTTON */
+.menu-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: #2563eb;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 1100;
+    display: none;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}

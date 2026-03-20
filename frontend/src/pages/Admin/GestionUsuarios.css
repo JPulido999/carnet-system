@@ -1,0 +1,405 @@
+/* CONTENEDOR */
+.usuarios-container {
+    padding: 40px;
+    color: #e5e7eb;
+}
+
+/* TÍTULO */
+.usuarios-container h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #5c0000;
+    text-align: center;
+}
+
+/* 🔍 BUSCADOR */
+.buscador {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.buscador input {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #374151;
+    background: #dbdbdb;
+    color: black;
+    outline: none;
+    transition: 0.2s;
+}
+
+.buscador input:focus {
+    border-color: #5c0000;
+    box-shadow: 0 0 0 2px rgba(92, 0, 0, 0.3);
+}
+
+.buscador button {
+    background: #5c0000;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.buscador button:hover {
+    background: #7a0000;
+}
+
+/* ➕ BOTÓN NUEVO */
+.btn-new {
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #5c0000, #7a0000);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-new {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-btn {
+    stroke-width: 2;
+}
+
+.btn-new:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(92, 0, 0, 0.4);
+}
+
+/* 📊 TABLA */
+.tabla-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+    background: #111827;
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+/* HEADER */
+.tabla-usuarios thead {
+    background: #1f2937;
+}
+
+.tabla-usuarios th {
+    padding: 14px;
+    text-align: left;
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+/* FILAS */
+.tabla-usuarios td {
+    padding: 14px;
+    border-top: 1px solid #1f2937;
+}
+
+/* HOVER */
+.tabla-usuarios tbody tr:hover {
+    background: rgba(92, 0, 0, 0.15);
+    transition: 0.2s;
+}
+
+/* 🎭 ROLES */
+.rol {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* COLORES ROLES */
+.rol.estudiante {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.rol.vigilante {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+}
+
+.rol.admin_sistema {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+/* 🔘 BOTONES */
+.btn-edit {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: 0.2s;
+}
+
+.btn-edit:hover {
+    background: #d97706;
+}
+
+.btn-delete {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-delete:hover {
+    background: #b91c1c;
+}
+
+/* 🔁 PAGINACIÓN */
+.paginacion {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.paginacion button {
+    background: #1f2937;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.paginacion button:hover {
+    background: #374151;
+}
+
+/* 🧾 MODAL */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* CAJA */
+.modal {
+    background: #111827;
+    padding: 25px;
+    border-radius: 16px;
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid #1f2937;
+    animation: fadeIn 0.2s ease;
+}
+
+/* ANIMACIÓN */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* INPUTS */
+.modal input,
+.modal select {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #374151;
+    background: #020617;
+    color: white;
+    outline: none;
+}
+
+.modal input:focus,
+.modal select:focus {
+    border-color: #5c0000;
+    box-shadow: 0 0 0 2px rgba(92, 0, 0, 0.3);
+}
+
+/* ACCIONES */
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* BOTONES MODAL */
+.btn-save {
+    background: linear-gradient(135deg, #5c0000, #7a0000);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.btn-save:hover {
+    box-shadow: 0 4px 12px rgba(92, 0, 0, 0.5);
+}
+
+.btn-cancel {
+    background: #374151;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.btn-cancel:hover {
+    background: #4b5563;
+}
+
+/* 📸 PREVIEW */
+.preview-img {
+    width: 100%;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #374151;
+}
+
+/* 🔔 TOAST */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    color: white;
+    font-size: 14px;
+    animation: slideIn 0.3s ease;
+    z-index: 2000;
+}
+
+.toast.success {
+    background: #16a34a;
+}
+
+.toast.error {
+    background: #dc2626;
+}
+
+/* ANIMACIÓN TOAST */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* MODAL CONFIRM */
+.modal.confirm {
+    text-align: center;
+}
+
+/* MODAL ANIMACIÓN MEJORADA */
+.modal {
+    animation: modalPop 0.25s ease;
+}
+
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* FILE UPLOAD */
+.file-upload {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* BOTÓN */
+.file-label {
+    background: #1f2937;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+}
+
+.file-label:hover {
+    background: #374151;
+}
+
+/* OCULTAR INPUT */
+.file-label input {
+    display: none;
+}
+
+/* PREVIEW CONTENEDOR */
+.preview-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+/* IMAGEN */
+.preview-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #374151;
+}
+
+/* BOTÓN ELIMINAR */
+.remove-img {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #dc2626;
+    border: none;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-img:hover {
+    background: #b91c1c;
+}

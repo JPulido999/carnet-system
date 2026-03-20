@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.unsch.carnet_digital.model.Usuario;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
@@ -19,4 +21,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     boolean existsByCorreo(String correo);
 
     boolean existsByDni(String dni);
+
+    Page<Usuario> findByDniContainingOrNombresContainingOrApellidosContaining(
+    String dni, String nombres, String apellidos, Pageable pageable
+);
 }

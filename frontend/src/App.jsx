@@ -15,6 +15,9 @@ import EscanearQR from "./pages/Verification/EscanearQR";
 import VerificacionManual from "./pages/Verification/VerificacionManual";
 
 
+import GestionUsuarios from "./pages/Admin/GestionUsuarios.jsx";
+
+
 export default function App() {
     const { token } = useContext(AuthContext);
 
@@ -70,6 +73,15 @@ export default function App() {
                         element={
                             <RutaProtegida roles={["ADMIN_SISTEMA"]}>
                             <AdminDashboard />
+                            </RutaProtegida>
+                        }
+                    />
+
+                    <Route
+                        path="/usuarios"
+                        element={
+                            <RutaProtegida roles={["ADMIN_SISTEMA"]}>
+                                <GestionUsuarios />
                             </RutaProtegida>
                         }
                     />

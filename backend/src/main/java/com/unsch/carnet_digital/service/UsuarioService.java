@@ -1,11 +1,27 @@
 package com.unsch.carnet_digital.service;
 
+import com.unsch.carnet_digital.model.RolUsuario;
+import com.unsch.carnet_digital.model.TipoAutenticacion;
 import com.unsch.carnet_digital.model.Usuario;
 import com.unsch.carnet_digital.repository.UsuarioRepository;
-import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import java.nio.file.Path;
 
 @Service
 public class UsuarioService {
@@ -27,6 +43,14 @@ public class UsuarioService {
         }
 
         usuario.setActivo(true);
+
+        // ✅ VALORES AUTOMÁTICOS
+        usuario.setFechaInicioVigencia(LocalDateTime.now());
+        usuario.setTipoAutenticacion(TipoAutenticacion.GOOGLE);
+
+        if (usuario.getFechaCreacion() == null) {
+            usuario.setFechaCreacion(LocalDateTime.now());
+        }
 
         // ✅ UUID SIEMPRE
         usuario.setUuidVerificacion(UUID.randomUUID().toString());
@@ -86,5 +110,106 @@ public class UsuarioService {
 
     public void eliminar(Long id) {
         repository.deleteById(id);
+    }
+
+    public void importarCSV(MultipartFile file) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(file.getInputStream()))) {
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+
+                String[] data = line.split(",");
+
+                Usuario u = new Usuario();
+                u.setDni(data[0]);
+                u.setNombres(data[1]);
+                u.setApellidos(data[2]);
+                u.setCorreo(data[3]);
+                u.setRol(RolUsuario.ESTUDIANTE);
+
+                repository.save(u);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al importar CSV");
+        }
+    }
+
+    public Page<Usuario> listarPaginado(String search, int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+
+        if (search == null || search.isBlank()) {
+            return repository.findAll(pageable);
+        }
+
+        return repository.findByDniContainingOrNombresContainingOrApellidosContaining(
+                search, search, search, pageable
+        );
+    }
+
+    public Usuario crearConFoto(Usuario usuario, MultipartFile file) {
+
+        if (repository.existsByCorreo(usuario.getCorreo())) {
+            throw new RuntimeException("El correo ya está registrado.");
+        }
+
+        usuario.setActivo(true);
+        usuario.setFechaInicioVigencia(LocalDateTime.now());
+        usuario.setTipoAutenticacion(TipoAutenticacion.GOOGLE);
+        usuario.setUuidVerificacion(UUID.randomUUID().toString());
+
+        // 📸 GUARDAR FOTO
+        if (file != null && !file.isEmpty()) {
+            try {
+                String nombreArchivo = usuario.getDni() + ".jpg";
+
+                Path ruta = Paths.get("/app/uploads/" + nombreArchivo);
+
+                Files.copy(file.getInputStream(), ruta, StandardCopyOption.REPLACE_EXISTING);
+
+                usuario.setFotoCarnetUrl(nombreArchivo);
+
+            } catch (Exception e) {
+                throw new RuntimeException("Error guardando imagen");
+            }
+        }
+
+        return repository.save(usuario);
+    }
+
+    public Usuario actualizarConFoto(Long id, Usuario datos, MultipartFile file) {
+
+        Usuario usuario = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        usuario.setNombres(datos.getNombres());
+        usuario.setApellidos(datos.getApellidos());
+        usuario.setDni(datos.getDni());
+        usuario.setCorreo(datos.getCorreo());
+        usuario.setCodigoEstudiante(datos.getCodigoEstudiante());
+        usuario.setEscuela(datos.getEscuela());
+        usuario.setRol(datos.getRol());
+        usuario.setActivo(datos.isActivo());
+
+        // 📸 SI VIENE FOTO
+        if (file != null && !file.isEmpty()) {
+            try {
+                String nombreArchivo = usuario.getDni() + ".jpg";
+
+                Path ruta = Paths.get("uploads/" + nombreArchivo);
+
+                Files.copy(file.getInputStream(), ruta, StandardCopyOption.REPLACE_EXISTING);
+
+                usuario.setFotoCarnetUrl(nombreArchivo);
+
+            } catch (Exception e) {
+                throw new RuntimeException("Error actualizando imagen");
+            }
+        }
+
+        return repository.save(usuario);
     }
 }
