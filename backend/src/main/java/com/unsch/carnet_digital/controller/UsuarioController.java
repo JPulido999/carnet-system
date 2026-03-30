@@ -16,7 +16,7 @@ import org.springframework.data.domain.PageRequest;
 
 @RestController
 @RequestMapping("/api/usuarios")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "${app.frontend.url}")
 public class UsuarioController {
 
     private final UsuarioService service;

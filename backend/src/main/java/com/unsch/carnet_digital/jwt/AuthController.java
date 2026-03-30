@@ -10,11 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
+
 @RestController
 public class AuthController {
 
     private final JwtService jwtService;
     private final UsuarioRepository usuarioRepository;
+
+    @Value("${app.frontend.url}")
+    private String frontendUrl;  // <-- inyección de variable
 
     public AuthController(JwtService jwtService, UsuarioRepository usuarioRepository) {
         this.jwtService = jwtService;
@@ -26,7 +31,7 @@ public class AuthController {
                              HttpServletResponse response) throws IOException {
 
         if (user == null) {
-        response.sendRedirect("http://localhost:5173/login?error=OAUTH_ERROR");
+        response.sendRedirect(frontendUrl + "/login?error=OAUTH_ERROR");
         return;
         }       
         
@@ -42,21 +47,21 @@ public class AuthController {
         }
 
         if (correo == null) {
-            response.sendRedirect("http://localhost:5173/login?error=NO_EMAIL");
+            response.sendRedirect(frontendUrl + "/login?error=NO_EMAIL");
             return;
         }
 
         var usuarioOpt = usuarioRepository.findByCorreo(correo);
 
         if (usuarioOpt.isEmpty()) {
-            response.sendRedirect("http://localhost:5173/login?error=NO_REGISTRADO");
+            response.sendRedirect(frontendUrl + "/login?error=NO_REGISTRADO");
             return;
         }
 
         Usuario usuario = usuarioOpt.get();
 
         if (!usuario.isActivo()) {
-            response.sendRedirect("http://localhost:5173/login?error=INACTIVO");
+            response.sendRedirect(frontendUrl + "/login?error=INACTIVO");
             return;
         }
 
@@ -64,6 +69,6 @@ public class AuthController {
         String token = jwtService.generarToken(usuario);
 
         // Redirigir al frontend
-        response.sendRedirect("http://localhost:5173/?token=" + token);
+        response.sendRedirect(frontendUrl + "/?token=" + token);
     }
 }

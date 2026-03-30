@@ -1,6 +1,7 @@
+import { BACKEND_URL } from "../config/api";
 import api from "./api";
 
-const API_URL = "http://localhost:9000/verificacion";
+const API_URL = `${BACKEND_URL}/verificacion`;
 
 export async function obtenerVerificacionPorUuid(uuid) {
   const res = await api.get(`/verificacion/${uuid}`);

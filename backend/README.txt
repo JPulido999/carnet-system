@@ -108,7 +108,7 @@ mvn spring-boot:run
 
 
 Si todo está correcto, la app se levantará en:
-👉 http://localhost:9000
+👉 ${BACKEND_URL}
 
 ✅ 6. Extensiones recomendadas en VS Code
 

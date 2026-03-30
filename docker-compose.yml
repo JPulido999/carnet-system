@@ -72,7 +72,10 @@ services:
       - red-interna
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        - VITE_BACKEND_URL=${BACKEND_URL}
     container_name: frontend_app
     restart: unless-stopped
     ports:

@@ -1,4 +1,5 @@
 import "./CarnetBase.css";
+import { BACKEND_URL } from "../../../config/api";
 
 export default function CarnetEstudiante({ datos }) {
     return (
@@ -6,7 +7,7 @@ export default function CarnetEstudiante({ datos }) {
 
             <div className="barra-superior estudiante-color">
                 <img
-                    src="http://localhost:9000/uploads/logounsch1.png"
+                    src={`${BACKEND_URL}/uploads/logounsch1.png`}
                     className="logo-unsch"
                 />
 
@@ -18,7 +19,7 @@ export default function CarnetEstudiante({ datos }) {
 
             <div className="marco-foto">
                 <img
-                    src={`http://localhost:9000/uploads/${datos.fotoCarnetUrl}`}
+                    src={`${BACKEND_URL}/uploads/${datos.fotoCarnetUrl}`}
                     className="foto-usuario"
                 />
             </div>

@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import "./GestionUsuarios.css";
 import { AuthContext } from "../../context/AuthContext";
 import { UserPlus } from "lucide-react";
+import { BACKEND_URL } from "../../config/api";
 
 export default function GestionUsuarios() {
 
@@ -41,7 +42,7 @@ export default function GestionUsuarios() {
 
         try {
             const res = await fetch(
-                `http://localhost:9000/api/usuarios/page?search=${search}&page=${page}&size=10`,
+                `${BACKEND_URL}/api/usuarios/page?search=${search}&page=${page}&size=10`,
                 {
                     headers: {
                         "Authorization": `Bearer ${token}`
@@ -79,7 +80,7 @@ export default function GestionUsuarios() {
 
     const confirmarEliminar = async () => {
         try {
-            await fetch(`http://localhost:9000/api/usuarios/${confirmDelete}`, {
+            await fetch(`${BACKEND_URL}/api/usuarios/${confirmDelete}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -114,7 +115,7 @@ export default function GestionUsuarios() {
         if (u.fotoCarnetUrl) {
             const url = u.fotoCarnetUrl.startsWith("http")
                 ? u.fotoCarnetUrl
-                : `http://localhost:9000/${u.fotoCarnetUrl}`;
+                : `${BACKEND_URL}/${u.fotoCarnetUrl}`;
 
             setPreview(url);
         } else {
@@ -164,8 +165,8 @@ export default function GestionUsuarios() {
             const metodo = modoEdicion ? "PUT" : "POST";
 
             const url = modoEdicion
-                ? `http://localhost:9000/api/usuarios/${usuarioActual.id}/con-foto`
-                : `http://localhost:9000/api/usuarios`;
+                ? `${BACKEND_URL}/api/usuarios/${usuarioActual.id}/con-foto`
+                : `${BACKEND_URL}/api/usuarios`;
 
             const res = await fetch(url, {
                 method: metodo,
@@ -207,7 +208,7 @@ setPreview(null);
         }
 
         try {
-            await fetch("http://localhost:9000/api/usuarios/import", {
+            await fetch(`${BACKEND_URL}/api/usuarios/import`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`

@@ -112,7 +112,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
    ```
 
 2. Si todo está correcto, la app se levantará en:  
-   👉 [http://localhost:9000](http://localhost:9000)  
+   👉 [${BACKEND_URL}](${BACKEND_URL})  
 
 ---
 

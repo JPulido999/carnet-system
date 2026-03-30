@@ -1,4 +1,5 @@
 import "./Home.css";
+import { BACKEND_URL } from "../../config/api";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -20,14 +21,14 @@ export default function Home() {
 
     const iniciarConGoogle = () => {
         window.location.href =
-            "http://localhost:9000/oauth2/authorization/google";
+            `${BACKEND_URL}/oauth2/authorization/google`;
     };
 
     const loginVigilante = async () => {
         setError(null);
 
         try {
-            const res = await fetch("http://localhost:9000/auth/local/login", {
+            const res = await fetch(`${BACKEND_URL}/auth/local/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
