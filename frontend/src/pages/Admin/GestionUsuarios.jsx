@@ -20,6 +20,10 @@ export default function GestionUsuarios() {
     const [toast, setToast] = useState(null);
     const [confirmDelete, setConfirmDelete] = useState(null);
 
+    const [fileExcel, setFileExcel] = useState(null);
+    const [filesFotos, setFilesFotos] = useState([]);
+    const [mostrarImportModal, setMostrarImportModal] = useState(false);
+
     const [usuarioActual, setUsuarioActual] = useState({
         id: null,
         nombres: "",
@@ -189,6 +193,37 @@ setPreview(null);
         }
     };
 
+    const importar = async () => {
+        if (!fileExcel) {
+            alert("Selecciona el Excel");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", fileExcel);
+
+        for (let i = 0; i < filesFotos.length; i++) {
+            formData.append("fotos", filesFotos[i]);
+        }
+
+        try {
+            await fetch("http://localhost:9000/api/usuarios/import", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            setMostrarImportModal(false);
+            setToast({ type: "success", msg: "Importación completada" });
+            cargarUsuarios();
+
+        } catch {
+            setToast({ type: "error", msg: "Error al importar" });
+        }
+    };
+
     return (
         <div className="usuarios-container">
 
@@ -210,6 +245,10 @@ setPreview(null);
             <button className="btn-new" onClick={nuevoUsuario}>
                 <UserPlus size={18} className="icon-btn" /> 
                 Nuevo Usuario
+            </button>
+
+            <button className="btn-import" onClick={() => setMostrarImportModal(true)}>
+                📥 Importar usuarios
             </button>
 
             {loading && <p>Cargando...</p>}
@@ -428,6 +467,42 @@ setPreview(null);
             {toast && (
                 <div className={`toast ${toast.type}`}>
                     {toast.msg}
+                </div>
+            )}
+
+            {mostrarImportModal && (
+                <div className="modal-overlay">
+                    <div className="modal">
+
+                        <h2>📥 Importar usuarios</h2>
+
+                        <input
+                            type="file"
+                            accept=".xlsx"
+                            onChange={e => setFileExcel(e.target.files[0])}
+                        />
+
+                        <input
+                            type="file"
+                            multiple
+                            accept="image/*"
+                            onChange={e => setFilesFotos(e.target.files)}
+                        />
+
+                        <div className="modal-actions">
+                            <button className="btn-save" onClick={importar}>
+                                Importar
+                            </button>
+
+                            <button
+                                className="btn-cancel"
+                                onClick={() => setMostrarImportModal(false)}
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+
+                    </div>
                 </div>
             )}
 

@@ -76,6 +76,13 @@
     box-shadow: 0 4px 12px rgba(92, 0, 0, 0.4);
 }
 
+.btn-import {
+    background: linear-gradient(135deg, #1e40af, #2563eb);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+}
+
 /* 📊 TABLA */
 .tabla-usuarios {
     width: 100%;

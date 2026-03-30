@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +23,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import java.nio.file.Path;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.util.ArrayList;
+import java.util.Map;
 
 @Service
 public class UsuarioService {
@@ -212,4 +218,96 @@ public class UsuarioService {
 
         return repository.save(usuario);
     }
+
+    public void importar(MultipartFile file, List<MultipartFile> fotos) {
+
+        try {
+            Map<String, MultipartFile> mapaFotos = new HashMap<>();
+
+            // 📸 Mapear fotos por DNI
+            for (MultipartFile foto : fotos) {
+                String nombre = foto.getOriginalFilename(); // 12345678.jpg
+                if (nombre == null) continue;
+
+                String dni = nombre.split("\\.")[0];
+                mapaFotos.put(dni, foto);
+            }
+
+            List<Usuario> usuarios = leerExcel(file);
+
+            for (Usuario u : usuarios) {
+
+                // VALIDACIONES BÁSICAS
+                if (repository.existsByDni(u.getDni())) continue;
+
+                MultipartFile foto = mapaFotos.get(u.getDni());
+
+                if (foto != null && !foto.isEmpty()) {
+                    String nombreArchivo = u.getDni() + ".jpg";
+
+                    Path ruta = Paths.get("uploads/" + nombreArchivo);
+                    Files.copy(foto.getInputStream(), ruta, StandardCopyOption.REPLACE_EXISTING);
+
+                    u.setFotoCarnetUrl("uploads/" + nombreArchivo);
+                }
+
+                u.setActivo(true);
+                u.setFechaInicioVigencia(LocalDateTime.now());
+                u.setTipoAutenticacion(TipoAutenticacion.GOOGLE);
+                u.setUuidVerificacion(UUID.randomUUID().toString());
+
+                repository.save(u);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error importando usuarios", e);
+        }
+    }
+
+    public List<Usuario> leerExcel(MultipartFile file) {
+
+        List<Usuario> usuarios = new ArrayList<>();
+
+        try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
+
+            Sheet sheet = workbook.getSheetAt(0);
+
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+
+                Row row = sheet.getRow(i);
+                if (row == null) continue;
+
+                Usuario u = new Usuario();
+
+                u.setDni(getCellValue(row.getCell(0)));
+                u.setNombres(getCellValue(row.getCell(1)));
+                u.setApellidos(getCellValue(row.getCell(2)));
+                u.setCorreo(getCellValue(row.getCell(3)));
+
+                // 🔥 Rol por defecto
+                u.setRol(RolUsuario.ESTUDIANTE);
+
+                usuarios.add(u);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error leyendo Excel", e);
+        }
+
+        return usuarios;
+    }
+
+    private String getCellValue(Cell cell) {
+        if (cell == null) return "";
+
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue();
+            case NUMERIC:
+                return String.valueOf((long) cell.getNumericCellValue());
+            default:
+                return "";
+        }
+    }
+    
 }

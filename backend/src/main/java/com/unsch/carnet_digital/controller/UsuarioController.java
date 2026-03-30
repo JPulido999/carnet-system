@@ -55,6 +55,15 @@ public class UsuarioController {
         return ResponseEntity.ok(service.actualizarConFoto(id, usuario, file));
     }
 
+    @PostMapping("/import")
+    public ResponseEntity<?> importarUsuarios(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("fotos") List<MultipartFile> fotos
+    ) {
+        service.importar(file, fotos); // 🔥 FIX
+        return ResponseEntity.ok("Importación exitosa");
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> actualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
         return ResponseEntity.ok(service.actualizar(id, usuario));
