@@ -1,0 +1,26 @@
+package com.unsch.carnet_digital.common;
+
+public enum ErrorCode {
+
+    // AUTH / SEGURIDAD
+    INVALID_CREDENTIALS,
+    USER_INACTIVE,
+    UNAUTHORIZED,
+    CREDENTIAL_DISABLED,
+
+    // USUARIOS
+    USER_NOT_FOUND,
+    USER_ALREADY_EXISTS,
+
+    // SISTEMA
+    INTERNAL_ERROR,
+
+    // IMPORTACIONES
+    IMPORT_ERROR,
+
+    // ARCHIVOS
+    FILE_UPLOAD_ERROR,
+
+    INVALID_UUID,
+    INVALID_INPUT
+}

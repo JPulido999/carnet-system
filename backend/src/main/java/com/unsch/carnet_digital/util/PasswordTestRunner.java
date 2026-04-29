@@ -1,10 +1,12 @@
 package com.unsch.carnet_digital.util;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("dev")
 public class PasswordTestRunner implements CommandLineRunner {
 
     private final PasswordEncoder encoder;
