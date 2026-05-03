@@ -38,10 +38,16 @@ public class JwtService {
         return getClaims(token).getSubject();
     }
 
+    // 🔹 EXTRAER ROL
+    public String extractRol(String token) {
+        return getClaims(token).get("rol", String.class);
+    }
+
     // 🔹 EXTRAER CLAIMS
     private Claims getClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
+                .requireIssuer("carnet-digital")
                 .build()
                 .parseClaimsJws(token)
                 .getBody();

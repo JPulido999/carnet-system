@@ -1,16 +1,24 @@
 package com.unsch.carnet_digital.verification;
 
+import com.unsch.carnet_digital.auditoria.MetodoVerificacion;
+import com.unsch.carnet_digital.auditoria.VerificacionLog;
+import com.unsch.carnet_digital.auditoria.VerificacionLogRepository;
 import com.unsch.carnet_digital.common.ErrorCode;
 import com.unsch.carnet_digital.foto.FotoService;
 import com.unsch.carnet_digital.usuario.Usuario;
 import com.unsch.carnet_digital.usuario.UsuarioRepository;
 import com.unsch.carnet_digital.verification.dto.VerificacionUsuarioDTO;
 
+import java.time.LocalDateTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 
 @Service
 public class VerificacionService {
@@ -20,9 +28,14 @@ public class VerificacionService {
     private final UsuarioRepository usuarioRepository;
     private final FotoService fotoService;
 
-    public VerificacionService(UsuarioRepository usuarioRepository, FotoService fotoService) {
+    private final VerificacionLogRepository logRepository;
+
+    
+
+    public VerificacionService(UsuarioRepository usuarioRepository, FotoService fotoService, VerificacionLogRepository logRepository) {
         this.usuarioRepository = usuarioRepository;
         this.fotoService = fotoService;
+        this.logRepository  = logRepository;
     }
 
     // ======================================
@@ -43,6 +56,7 @@ public class VerificacionService {
                         ErrorCode.USER_NOT_FOUND.name()
                 ));
 
+        registrarLog(usuario, "QR", uuid);
         return mapToDTO(usuario);
     }
 
@@ -77,6 +91,7 @@ public class VerificacionService {
                     ));
         }
 
+        registrarLog(usuario, "DNI", dni);
         return mapToDTO(usuario);
     }
 
@@ -102,7 +117,26 @@ public class VerificacionService {
                 usuario.getCodigoEstudiante(),
                 usuario.getRol().name(),
                 usuario.getEscuela(),
-                fotoBase64
+                fotoBase64,
+                usuario.isActivo()
         );
+    }
+
+    // ======================================
+    // GUARDAR LOGS
+    // ======================================
+    private void registrarLog(Usuario usuario, String metodo, String valor) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Usuario vigilante = (Usuario) auth.getPrincipal();
+
+        VerificacionLog log = new VerificacionLog();
+        log.setUsuarioVerificado(usuario);
+        log.setVerificadoPor(vigilante);
+        log.setMetodo(MetodoVerificacion.valueOf(metodo));
+        log.setValorBuscado(valor);
+        log.setFecha(LocalDateTime.now());
+
+        logRepository.save(log);
     }
 }

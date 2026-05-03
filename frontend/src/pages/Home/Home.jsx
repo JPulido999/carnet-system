@@ -28,7 +28,7 @@ export default function Home() {
         setError(null);
 
         try {
-            const res = await fetch(`${BACKEND_URL}/auth/local/login`, {
+            const res = await fetch(`${BACKEND_URL}/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/carnet")
+@RequestMapping("/carnet")
 public class CarnetController {
 
     private final FotoService fotoService;

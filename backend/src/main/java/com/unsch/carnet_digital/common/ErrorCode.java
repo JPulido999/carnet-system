@@ -7,11 +7,12 @@ public enum ErrorCode {
     USER_INACTIVE,
     UNAUTHORIZED,
     CREDENTIAL_DISABLED,
+    USER_BLOCKED,
 
     // USUARIOS
     USER_NOT_FOUND,
     USER_ALREADY_EXISTS,
-
+    
     // SISTEMA
     INTERNAL_ERROR,
 

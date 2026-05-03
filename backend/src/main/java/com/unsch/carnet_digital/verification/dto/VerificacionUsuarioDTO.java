@@ -9,6 +9,7 @@ public class VerificacionUsuarioDTO {
     private String rol;
     private String escuela;
     private String fotoBase64;
+    private boolean activo;
 
     public VerificacionUsuarioDTO(
             String nombres,
@@ -17,7 +18,8 @@ public class VerificacionUsuarioDTO {
             String codigoEstudiante,
             String rol,
             String escuela,
-            String fotoBase64
+            String fotoBase64,
+            Boolean activo
     ) {
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -26,6 +28,7 @@ public class VerificacionUsuarioDTO {
         this.rol = rol;
         this.escuela = escuela;
         this.fotoBase64 = fotoBase64;
+        this.activo = activo;
     }
 
     // getters solamente (NO setters)
@@ -36,4 +39,5 @@ public class VerificacionUsuarioDTO {
     public String getRol() { return rol; }
     public String getEscuela() { return escuela; }
     public String getFotoBase64() { return fotoBase64; }
+    public boolean isActivo() { return activo; }
 }

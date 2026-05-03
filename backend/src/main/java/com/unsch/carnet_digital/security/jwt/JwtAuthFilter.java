@@ -94,7 +94,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         // 🔥 8. CREAR AUTENTICACIÓN
-        String rol = usuario.getRol().name();
+        String rol = jwtService.extractRol(token);
 
         List<SimpleGrantedAuthority> authorities =
                 List.of(new SimpleGrantedAuthority("ROLE_" + rol));

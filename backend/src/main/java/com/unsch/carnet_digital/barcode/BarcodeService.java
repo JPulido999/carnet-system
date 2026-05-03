@@ -33,5 +33,4 @@ public class BarcodeService {
         return generarCode128Base64(texto, 600, 150);
     }
 
-    // QR opcional (si deseas mantenerlo, pero yo recomiendo separarlo)
 }
