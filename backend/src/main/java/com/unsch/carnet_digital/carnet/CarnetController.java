@@ -4,6 +4,7 @@ import com.unsch.carnet_digital.barcode.BarcodeService;
 import com.unsch.carnet_digital.foto.FotoService;
 import com.unsch.carnet_digital.qr.QRService;
 import com.unsch.carnet_digital.usuario.Usuario;
+import com.unsch.carnet_digital.usuario.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,16 @@ public class CarnetController {
     private final FotoService fotoService;
     private final BarcodeService barcodeService;
     private final QRService qrService;
-    
+    private final UsuarioRepository usuarioRepository;
 
     @Value("${app.frontend.url}")
     private String frontendUrl;
 
-    public CarnetController(BarcodeService barcodeService, QRService qrService, FotoService fotoService) {
+    public CarnetController(BarcodeService barcodeService, QRService qrService, FotoService fotoService, UsuarioRepository usuarioRepository) {
         this.barcodeService = barcodeService;
         this.qrService = qrService;
         this.fotoService = fotoService;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @GetMapping("/me")
@@ -52,11 +54,15 @@ public class CarnetController {
                 throw new RuntimeException("Usuario sin DNI ni código");
             }
 
+            Usuario userDb = usuarioRepository.findById(usuario.getId())
+                .orElseThrow();
+
             /* ===============================
                2. UUID verificación
                =============================== */
-            if (usuario.getUuidVerificacion() == null) {
-                usuario.setUuidVerificacion(UUID.randomUUID().toString());
+            if (userDb.getUuidVerificacion() == null) {
+                userDb.setUuidVerificacion(UUID.randomUUID().toString());
+                usuarioRepository.save(userDb);
             }
 
             /* ===============================

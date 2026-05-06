@@ -128,7 +128,14 @@ public class VerificacionService {
     private void registrarLog(Usuario usuario, String metodo, String valor) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Usuario vigilante = (Usuario) auth.getPrincipal();
+
+        String correo = auth.getName();
+
+        Usuario vigilante = usuarioRepository.findByCorreoIgnoreCase(correo)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorCode.USER_NOT_FOUND.name()
+                ));
 
         VerificacionLog log = new VerificacionLog();
         log.setUsuarioVerificado(usuario);
